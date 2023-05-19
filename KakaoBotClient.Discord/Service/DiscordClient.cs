@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
-using KakaoBotClient.Discord.Service;
+
+namespace KakaoBotClient.Discord.Service;
 
 public class DiscordClient
 {
@@ -35,6 +36,8 @@ public class DiscordClient
         {
             var channel = await _client.GetChannelAsync(ulong.Parse(e.Room)) as ISocketMessageChannel;
             channel?.SendMessageAsync(e.Content);
+
+            Console.WriteLine("[SendMessageAsync] channel: {0}, message size: {1}", channel?.Id, e.Content.Length);
         }
         catch (Exception ex)
         {
@@ -46,7 +49,7 @@ public class DiscordClient
     {
         if (message.Author.IsBot) return;
 
-        Console.WriteLine("[OnMessageReceived]" + message.Content);
+        Console.WriteLine("[OnMessageReceived] channel: {0}, message size: {1}", message.Channel.Id, message.Content.Length);
 
         _botServerClient.SendMessage(new Message(
             IsGroupChat: true,
