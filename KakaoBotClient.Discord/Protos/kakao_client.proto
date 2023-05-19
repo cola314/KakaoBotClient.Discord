@@ -1,0 +1,30 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcProto";
+
+package kakao;
+
+service KakaoClient {
+	rpc ReadPushMessage (ReadPushMessageRequest) returns (stream PushMessageResponse);
+	rpc SendReceivedMessage (SendReceivedMessageRequest) returns (SendReceivedMessageResponse);
+}
+
+message ReadPushMessageRequest {
+	string apiKey = 1;
+}
+
+message PushMessageResponse {
+	string room = 1;
+	string message = 2;
+}
+
+message SendReceivedMessageRequest {
+	string apiKey = 1;
+	string sender = 2;
+	string room = 3;
+	string message = 4;
+	bool isGroupChat = 5;
+}
+
+message SendReceivedMessageResponse {
+}
