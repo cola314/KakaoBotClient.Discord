@@ -10,12 +10,16 @@ public class DiscordClient
 
     public DiscordClient(string token, KakaoBotServerClient botServerClient)
     {
-        _client = new DiscordSocketClient();
+        var config = new DiscordSocketConfig()
+        {
+            GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent
+        };
+        _client = new DiscordSocketClient(config);
         _token = token;
         _botServerClient = botServerClient;
     }
 
-    public async void Start()
+    public async Task Start()
     {
         _botServerClient.OnReceiveMessage += BotServerClientOnOnReceiveMessage; 
         _client.Log += OnLog;
@@ -41,6 +45,8 @@ public class DiscordClient
     private async Task OnMessageReceived(SocketMessage message)
     {
         if (message.Author.IsBot) return;
+
+        Console.WriteLine("[OnMessageReceived]" + message.Content);
 
         _botServerClient.SendMessage(new Message(
             IsGroupChat: true,

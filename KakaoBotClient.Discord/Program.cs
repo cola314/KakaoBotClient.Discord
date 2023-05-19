@@ -5,6 +5,8 @@ var serverAddress = Environment.GetEnvironmentVariable("API_SERVER")!;
 var apiKey = Environment.GetEnvironmentVariable("API_KEY")!;
 
 var kakaoServerClient = new KakaoBotServerClient();
-kakaoServerClient.ConnectAsync(serverAddress, apiKey);
+await kakaoServerClient.ConnectAsync(serverAddress, apiKey);
 
-new DiscordClient(token, kakaoServerClient).Start();
+await new DiscordClient(token, kakaoServerClient).Start();
+
+await Task.Delay(-1);
