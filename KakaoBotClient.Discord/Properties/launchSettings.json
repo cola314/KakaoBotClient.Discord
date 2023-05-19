@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KakaoBotClient.Discord": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
